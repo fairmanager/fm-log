@@ -90,4 +90,22 @@ describe( "Logger", function() {
     } );
   } );
 
+  describe( "mixed prefixes", function() {
+    it( "should log multiline", function( done ) {
+      log = require( "../lib/log.js" ).module( "module" );
+      log = require( "../lib/log.js" ).module( "foo" );
+      log.info( "!\n!" );
+      result.length.should.equal( 2 );
+      result[0].should.match( /\d \[INFO  \] \(   foo\) !/ );
+      result[1].should.match( /\d                   !/ );
+
+      log = require( "../lib/log.js" );
+      log.info( "!\n!" );
+      result.length.should.equal( 4 );
+      result[2].should.match( /\d \[INFO  \]          !/ );
+      result[3].should.match( /\d                   !/ );
+      setTimeout( done, 200 );
+    } );
+  } );
+
 } );
