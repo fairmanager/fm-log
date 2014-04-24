@@ -1,3 +1,4 @@
+var colors = require( "colors" );
 var should = require( 'should' );
 
 describe( "Logger", function() {
@@ -8,7 +9,7 @@ describe( "Logger", function() {
   beforeEach( function() {
     result = [];
     consoleLog = function() {
-      result.push( arguments );
+      result.push( arguments[0].stripColors );
       consoleLogOrig.apply( console, arguments );
     };
     console.log = consoleLog;
