@@ -1,0 +1,27 @@
+{
+  "name": "fm-log",
+  "version": "0.0.1",
+  "description": "Console logging facility for Node",
+  "main": "lib/log.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hartwig-at/fm-log.git"
+  },
+  "keywords": [
+    "console",
+    "log",
+    "logging"
+  ],
+  "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hartwig-at/fm-log/issues"
+  },
+  "homepage": "https://github.com/hartwig-at/fm-log",
+  "dependencies": {
+    "colors": "^0.6.2"
+  }
+}
