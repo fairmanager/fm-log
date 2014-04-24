@@ -21,6 +21,12 @@
     "url": "https://github.com/hartwig-at/fm-log/issues"
   },
   "homepage": "https://github.com/hartwig-at/fm-log",
+  "devDependencies": {
+    "grunt": ">= 0.4.4",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "vows": "^0.7.0"
+  },
   "dependencies": {
     "colors": "^0.6.2",
     "type-of-is": "^3.2.0"
