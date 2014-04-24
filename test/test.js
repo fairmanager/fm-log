@@ -108,4 +108,12 @@ describe( "Logger", function() {
     } );
   } );
 
+  describe( "errors", function() {
+    it( "should render them properly", function( done ) {
+      log = require( "../lib/log.js" ).module( "module" );
+      log.error( new Error( "boom" ) );
+      setTimeout( done, 200 );
+    } )
+  } )
+
 } );
