@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/hartwig-at/fm-log",
   "dependencies": {
-    "colors": "^0.6.2"
+    "colors": "^0.6.2",
+    "type-of-is": "^3.2.0"
   }
 }
