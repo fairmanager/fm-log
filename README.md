@@ -3,7 +3,19 @@ fm-log
 
 What?
 -----
-Straight-forward logging module. Lines up everything in nice columns. Uses colors. Sends everything straight to `console.log`, no events, no `nextTick()`.
+Straight-forward logging module.
+
+- lines up everything in nice columns
+- uses colors
+- sends everything straight to `console.log`, no events, no `nextTick()`
+- condenses repeated messages like:
+
+        2014-04-24 17:17:00.138 [DEBUG ] (    api-mobile.js) Cleaning up messages...
+        2014-04-24 17:34:32.715 [DEBUG ] (    api-mobile.js) Last message repeated 17 times.
+        2014-04-24 17:34:32.715 [INFO  ] (    api-person.js) API-REQUEST: List Person...
+
+Example
+-------
 
 	var log = require( "fm-log" ).module( path.basename( __filename ) );
 	log.info( "Initializing application..." );
