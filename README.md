@@ -14,6 +14,10 @@ Straight-forward logging module.
         2014-04-24 17:34:32.715 [DEBUG ] (    api-mobile.js) Last message repeated 17 times.
         2014-04-24 17:34:32.715 [INFO  ] (    api-person.js) API-REQUEST: List Person...
 
+- displays stack traces for logged Error instances and other multi-line content like:
+
+	![](img/example2.png) 
+
 Example
 -------
 
@@ -30,7 +34,7 @@ Example
 	var generic = require( "fm-log" );
 	generic.notice( "We don't need no prefix" );
 
-![](example.png)
+![](img/example.png)
 
 How?
 ----
