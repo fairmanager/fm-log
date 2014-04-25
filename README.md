@@ -18,10 +18,15 @@ Straight-forward logging module.
 
 	![](img/example2.png) 
 
+- displays the source of the logging call when included like:
+
+		var log = require().withSource();
+		var log = require().module().withSource();
+
 Example
 -------
 
-	var log = require( "fm-log" ).module( path.basename( __filename ) );
+	var log = require( "fm-log" ).module();
 	log.info( "Initializing application..." );
 	  
 	log.debug( "We be logging" );
@@ -41,7 +46,7 @@ How?
 
 Put this in every file where you want to log:
 
-    var log = require( "fm-log" ).module( path.basename( __filename ) );
+    var log = require( "fm-log" ).module();
 
 Then just use `log.info` or one of the other logging levels shown above.
 
