@@ -8,36 +8,36 @@ Straight-forward logging module.
 - lines up everything in nice columns
 - uses colors
 - sends everything straight to `console.log`, no events, no `nextTick()`
-- condenses repeated messages like:
-
-        2014-04-24 17:17:00.138 [DEBUG ] (    api-mobile.js) Cleaning up messages...
-        2014-04-24 17:34:32.715 [DEBUG ] (    api-mobile.js) Last message repeated 17 times.
-        2014-04-24 17:34:32.715 [INFO  ] (    api-person.js) API-REQUEST: List Person...
-
-- displays stack traces for logged Error instances and other multi-line content like:
-
-	![](img/example2.png) 
-
-- displays the source of the logging call when included like:
-
-		var log = require().withSource();
-		var log = require().module().withSource();
+- condenses repeated messages
+- displays stack traces for logged Error instances and other multi-line content nicely
+- optionally displays the source of the logging call
 
 Example
 -------
 
-	var log = require( "fm-log" ).module();
-	log.info( "Initializing application..." );
-	  
-	log.debug( "We be logging" );
-	log.info( "We be logging" );
-	log.notice( "We be logging" );
-	log.warn( "We be warning" );
-	log.error( "We be logging" );
-	log.critical( "We be logging" );
-	
-	var generic = require( "fm-log" );
-	generic.notice( "We don't need no prefix" );
+```js
+var log = require( __dirname + "/lib/log.js" ).module( "demo" );
+
+log.info( "Logging without source tracing" );
+log.notice( "Initializing application...\nwow\nsuch application" );
+log.critical( new Error( "Logging an Error instance." ) );
+
+log.withSource();
+log.info( "Logging WITH source tracing" );
+log.notice( "You'll never know where this was logged from!" );
+
+log = require( __dirname + "/lib/log.js" );
+log.warn( "We don't need no prefix!" );
+
+log = require( __dirname + "/lib/log.js" ).module( "something weird" );
+log.warn( "...or do we?" );
+
+log = require( __dirname + "/lib/log.js" );
+log.notice( "You're using a longer prefix? I'll adjust." );
+
+log = require( __dirname + "/lib/log.js" ).module();
+log.error( "ouch" );
+```
 
 ![](img/example.png)
 
