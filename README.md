@@ -44,6 +44,10 @@ log.error( "ouch" );
 How?
 ----
 
+Install
+
+    npm install fm-log
+
 Put this in every file where you want to log:
 
     var log = require( "fm-log" ).module();
