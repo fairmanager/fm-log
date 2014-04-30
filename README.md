@@ -11,6 +11,8 @@ Straight-forward logging module.
 - condenses repeated messages
 - displays stack traces for logged Error instances and other multi-line content nicely
 - optionally displays the source of the logging call
+- supports wrapping of [morgan](https://github.com/expressjs/morgan) in your express app
+- can replace the [debug](https://github.com/visionmedia/debug) module, using [hartwig-at/debug](https://github.com/hartwig-at/debug)
 
 Example
 -------
@@ -40,6 +42,11 @@ log.error( "ouch" );
 ```
 
 ![](img/example.png)
+
+```js
+// Wrap morgan
+app.use( require( "fm-log" ).module( "HTTP" ).morgan( {format : "dev"} ) );
+```
 
 How?
 ----
