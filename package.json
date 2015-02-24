@@ -22,12 +22,12 @@
   },
   "homepage": "https://github.com/hartwig-at/fm-log",
   "devDependencies": {
-    "grunt": ">= 0.4.4",
-    "grunt-contrib-jshint": "~0.10.0",
+    "grunt": "0.4.5",
+    "grunt-contrib-jshint": "0.11.0",
     "grunt-contrib-watch": "~0.6.1",
-    "should": "^3.3.1"
+    "should": "5.0.1"
   },
   "dependencies": {
-    "colors": "^0.6.2"
+    "chalk": "1.0.0"
   }
 }
