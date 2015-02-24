@@ -1,6 +1,6 @@
 {
   "name": "fm-log",
-  "version": "0.7.4",
+  "version": "0.8.0",
   "description": "Console logging facility for Node",
   "main": "lib/log.js",
   "scripts": {
