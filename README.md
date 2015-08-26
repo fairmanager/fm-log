@@ -65,3 +65,8 @@ For loggers without a specific prefix, just `require()` the module and use it di
 
 	var generic = require( "fm-log" );
 	generic.notice( "We don't need no prefix" );
+	
+To log to a different stream (`process.stdout` is the default), use `.to()`:
+
+	var logger = require( "fm-log" ).to( process.stderr );
+
