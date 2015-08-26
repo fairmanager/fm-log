@@ -7,7 +7,7 @@ Straight-forward logging module.
 
 - lines up everything in nice columns
 - uses colors
-- sends everything straight to `console.log`, no events, no `nextTick()`
+- sends everything straight to `process.stdout` (no events, no `nextTick()`) if desired
 - condenses repeated messages
 - displays stack traces for logged Error instances and other multi-line content nicely
 - optionally displays the source of the logging call
@@ -53,11 +53,11 @@ How?
 
 Install
 
-    npm install fm-log
+	npm install fm-log
 
 Put this in every file where you want to log:
 
-    var log = require( "fm-log" ).module();
+	var log = require( "fm-log" ).module();
 
 Then just use `log.info` or one of the other logging levels shown above.
 
@@ -65,8 +65,12 @@ For loggers without a specific prefix, just `require()` the module and use it di
 
 	var generic = require( "fm-log" );
 	generic.notice( "We don't need no prefix" );
-	
+
 To log to a different stream (`process.stdout` is the default), use `.to()`:
 
 	var logger = require( "fm-log" ).to( process.stderr );
+
+To send data straight to the output stream (without `nextTick()`), use `.sync()`:
+
+	var logger = require( "fm-log" ).sync();
 
