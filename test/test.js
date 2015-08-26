@@ -3,8 +3,6 @@ var should = require( "should" );
 
 describe( "Logger", function() {
 	var log;
-	var consoleLogOrig = console.log;
-	var consoleLog     = console.log;
 	var result;
 
 	var Stream      = require( "stream" ).Writable;
@@ -113,7 +111,7 @@ describe( "Logger", function() {
 			log = require( "../lib/log.js" ).module( "module" );
 			log.error( new Error( "boom" ) );
 			setTimeout( done, 200 );
-		} )
-	} )
+		} );
+	} );
 
 } );
