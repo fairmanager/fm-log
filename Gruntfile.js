@@ -16,6 +16,16 @@ module.exports = function( grunt ) {
 				}
 			},
 
+			jscs : {
+				src     : [
+					"lib/*.js"
+				],
+				options : {
+					config  : ".jscsrc",
+					verbose : true
+				}
+			},
+
 			watch : {
 				files : [ "lib/*.js" ],
 				tasks : [ "jshint" ]
@@ -23,8 +33,9 @@ module.exports = function( grunt ) {
 		}
 	);
 
+	grunt.loadNpmTasks( "grunt-jscs" );
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 
-	grunt.registerTask( "default", [ "jshint" ] );
+	grunt.registerTask( "default", [ "jshint", "jscs" ] );
 };

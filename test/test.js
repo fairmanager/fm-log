@@ -1,26 +1,23 @@
-var chalk = require( "chalk" );
+var chalk  = require( "chalk" );
 var should = require( "should" );
 
 describe( "Logger", function() {
 	var log;
-	var consoleLogOrig = console.log;
-	var consoleLog = console.log;
 	var result;
+
+	var Stream      = require( "stream" ).Writable;
+	var logStream   = new Stream();
+	logStream.write = function writeHandler( data ) {
+		result.push( chalk.stripColor( arguments[ 0 ] ) );
+	};
+
 	beforeEach( function() {
 		result = [];
-		consoleLog = function() {
-			result.push( chalk.stripColor( arguments[ 0 ] ) );
-			consoleLogOrig.apply( console, arguments );
-		};
-		console.log = consoleLog;
-	} );
-	afterEach( function() {
-		consoleLog = consoleLogOrig;
 	} );
 
 	describe( "without prefix", function() {
 		beforeEach( function() {
-			log = require( "../lib/log.js" );
+			log = require( "../lib/log.js" ).to( logStream );
 		} );
 
 		it( "should log without errors", function( done ) {
@@ -56,18 +53,19 @@ describe( "Logger", function() {
 
 	describe( "with prefix", function() {
 		beforeEach( function() {
-			log = require( "../lib/log.js" ).module( "foo" );
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 		} );
 
 		it( "should log without errors", function( done ) {
 			log.info( "!" );
+			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(foo\) !/ );
 			setTimeout( done, 200 );
 		} );
 
 		it( "should log multiline", function( done ) {
 			log.info( "!\n!" );
-			result.length.should.equal( 2 );
+			result.should.have.length( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(foo\) !/ );
 			result[ 1 ].should.match( /\d                !/ );
 			setTimeout( done, 200 );
@@ -92,8 +90,8 @@ describe( "Logger", function() {
 
 	describe( "mixed prefixes", function() {
 		it( "should log multiline", function( done ) {
-			log = require( "../lib/log.js" ).module( "module" );
-			log = require( "../lib/log.js" ).module( "foo" );
+			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!\n!" );
 			result.length.should.equal( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
@@ -113,7 +111,7 @@ describe( "Logger", function() {
 			log = require( "../lib/log.js" ).module( "module" );
 			log.error( new Error( "boom" ) );
 			setTimeout( done, 200 );
-		} )
-	} )
+		} );
+	} );
 
 } );
