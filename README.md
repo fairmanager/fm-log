@@ -1,6 +1,6 @@
 fm-log
 ======
-![](https://travis-ci.org/hartwig-at/fm-log.svg?branch=master)
+[![](https://travis-ci.org/hartwig-at/fm-log.svg?branch=master)](https://travis-ci.org/hartwig-at/fm-log)
 
 What?
 -----
