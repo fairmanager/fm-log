@@ -1,5 +1,6 @@
 fm-log
 ======
+![](https://travis-ci.org/hartwig-at/fm-log.svg?branch=master)
 
 What?
 -----
