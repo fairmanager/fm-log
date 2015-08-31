@@ -1,6 +1,7 @@
 fm-log
 ======
 [![](https://travis-ci.org/hartwig-at/fm-log.svg?branch=master)](https://travis-ci.org/hartwig-at/fm-log)
+[![Coverage Status](https://coveralls.io/repos/hartwig-at/fm-log/badge.svg?branch=master&service=github)](https://coveralls.io/github/hartwig-at/fm-log?branch=master)
 
 What?
 -----
