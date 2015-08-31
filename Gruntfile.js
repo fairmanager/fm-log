@@ -49,7 +49,7 @@ module.exports = function( grunt ) {
 			return done();
 		}
 
-		require( "coveralls" ).handleInput( lcov, function( err ) {
+		require( "coveralls" ).handleInput( lcovFileContents, function( err ) {
 			if( err ) {
 				return done( err );
 			}
