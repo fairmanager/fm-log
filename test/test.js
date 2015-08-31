@@ -173,6 +173,41 @@ describe( "Logger", function() {
 		} );
 	} );
 
+	describe( "duplicate messages", function() {
+		afterEach( function() {
+			// Clear internal repeat count.
+			log.info( "---" );
+		} );
+		it( "should be omitted", function() {
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			log.info( "!" );
+			result.length.should.equal( 1 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+		} );
+		it( "should be summarized", function() {
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			log.info( "!" );
+			log.info( "!!" );
+			result.length.should.equal( 3 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
+			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
+		} );
+		it( "should be summarized with pluralization", function() {
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			log.info( "!" );
+			log.info( "!" );
+			log.info( "!!" );
+			result.length.should.equal( 3 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 2 times\./ );
+			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
+		} );
+	} );
+
 	// This prefix changes indentation. Test this last, as it affects other test output.
 	describe( "default prefix", function() {
 		it( "should pick the correct module name", function( done ) {
