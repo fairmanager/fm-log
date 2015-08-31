@@ -22,6 +22,7 @@ describe( "Logger", function() {
 
 		it( "should log without errors", function( done ) {
 			log.info( "!" );
+			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] !/ );
 			done();
 		} );
@@ -168,6 +169,17 @@ describe( "Logger", function() {
 			result.length.should.equal( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\)   source@.+?:\d+:\d+/ );
+			done();
+		} );
+	} );
+
+	// This prefix changes indentation. Test this last, as it affects other test output.
+	describe( "default prefix", function() {
+		it( "should pick the correct module name", function( done ) {
+			log = require( "../lib/log.js" ).module().to( logStream );
+			log.info( "!" );
+			result.should.have.length( 1 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(test\.js\) !/ );
 			done();
 		} );
 	} );
