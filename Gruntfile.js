@@ -27,15 +27,12 @@ module.exports = function( grunt ) {
 			},
 
 			mocha_istanbul : {// jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
-				coverage  : {
-					src : "test"
-				},
-				coveralls : {
+				coverage : {
 					src     : "test",
 					options : {
 						coverage      : true,
 						root          : "./lib",
-						reportFormats : [ "cobertura", "lcovonly" ]
+						reportFormats : [ "lcov" ]
 					}
 				}
 			},
@@ -65,7 +62,6 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-mocha-istanbul" );
 
-	grunt.registerTask( "coveralls", [ "mocha_istanbul:coveralls" ] );
-	grunt.registerTask( "coverage", [ "mocha_istanbul:coverage" ] );
+	grunt.registerTask( "test", [ "mocha_istanbul:coverage" ] );
 	grunt.registerTask( "default", [ "jshint", "jscs" ] );
 };
