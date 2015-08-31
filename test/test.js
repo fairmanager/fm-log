@@ -114,4 +114,49 @@ describe( "Logger", function() {
 		} );
 	} );
 
+	describe( "disabled logging", function() {
+		it( "shouldn't render debug", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.debug( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+		it( "shouldn't render info", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.info( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+		it( "shouldn't render notice", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.notice( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+		it( "shouldn't render warn", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.warn( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+		it( "shouldn't render error", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.error( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+		it( "shouldn't render critical", function( done ) {
+			log = require( "../lib/log.js" );
+			log.enableLogging = false;
+			log.critical( "something" );
+			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+	} );
+
 } );
