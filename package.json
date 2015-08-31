@@ -4,7 +4,7 @@
   "description": "Console logging facility for Node",
   "main": "lib/log.js",
   "scripts": {
-    "test": "mocha"
+    "test": "node -e \"require('grunt').tasks(['test']);\""
   },
   "repository": {
     "type": "git",
