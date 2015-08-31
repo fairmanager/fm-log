@@ -115,46 +115,55 @@ describe( "Logger", function() {
 	} );
 
 	describe( "disabled logging", function() {
-		it( "shouldn't render debug", function( done ) {
-			log = require( "../lib/log.js" );
+		beforeEach( function() {
+			log               = require( "../lib/log.js" ).to( logStream );
 			log.enableLogging = false;
-			log.debug( "something" );
+		} );
+		afterEach( function() {
+			log.enableLogging = true;
+		} );
+
+		it( "shouldn't render debug", function( done ) {
+			log.debug( "!" );
 			result.length.should.equal( 0 );
 			setTimeout( done, 200 );
 		} );
 		it( "shouldn't render info", function( done ) {
-			log = require( "../lib/log.js" );
-			log.enableLogging = false;
-			log.info( "something" );
+			log.info( "!" );
 			result.length.should.equal( 0 );
 			setTimeout( done, 200 );
 		} );
 		it( "shouldn't render notice", function( done ) {
-			log = require( "../lib/log.js" );
-			log.enableLogging = false;
-			log.notice( "something" );
+			log.notice( "!" );
 			result.length.should.equal( 0 );
 			setTimeout( done, 200 );
 		} );
 		it( "shouldn't render warn", function( done ) {
-			log = require( "../lib/log.js" );
-			log.enableLogging = false;
-			log.warn( "something" );
+			log.warn( "!" );
 			result.length.should.equal( 0 );
 			setTimeout( done, 200 );
 		} );
 		it( "shouldn't render error", function( done ) {
-			log = require( "../lib/log.js" );
-			log.enableLogging = false;
-			log.error( "something" );
+			log.error( "!" );
 			result.length.should.equal( 0 );
 			setTimeout( done, 200 );
 		} );
 		it( "shouldn't render critical", function( done ) {
-			log = require( "../lib/log.js" );
+			log               = require( "../lib/log.js" );
 			log.enableLogging = false;
-			log.critical( "something" );
+			log.critical( "!" );
 			result.length.should.equal( 0 );
+			setTimeout( done, 200 );
+		} );
+	} );
+
+	describe( "source tracing", function() {
+		it( "should render them properly", function( done ) {
+			log = require( "../lib/log.js" ).module( "foo" ).withSource().to( logStream );
+			log.info( "!" );
+			result.length.should.equal( 2 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\)   Context.<anonymous> \(.+?:\d+:\d+/ );
 			setTimeout( done, 200 );
 		} );
 	} );
