@@ -2,6 +2,8 @@ fm-log
 ======
 [![](https://travis-ci.org/hartwig-at/fm-log.svg?branch=master)](https://travis-ci.org/hartwig-at/fm-log)
 [![Coverage Status](https://coveralls.io/repos/hartwig-at/fm-log/badge.svg?branch=master&service=github)](https://coveralls.io/github/hartwig-at/fm-log?branch=master)
+[![Code Climate](https://codeclimate.com/github/hartwig-at/fm-log/badges/gpa.svg)](https://codeclimate.com/github/hartwig-at/fm-log)
+![GitHub license](https://img.shields.io/github/license/hartwig-at/fm-log.svg)
 
 What?
 -----
@@ -20,7 +22,7 @@ Example
 -------
 
 ```js
-var log = require( __dirname + "/lib/log.js" ).module( "demo" );
+var log = require( "fm-log" ).module( "demo" );
 
 log.info( "Logging without source tracing" );
 log.notice( "Initializing application...\nwow\nsuch application" );
@@ -30,16 +32,16 @@ log.withSource();
 log.info( "Logging WITH source tracing" );
 log.notice( "You'll never know where this was logged from!" );
 
-log = require( __dirname + "/lib/log.js" );
+log = require( "fm-log" );
 log.warn( "We don't need no prefix!" );
 
-log = require( __dirname + "/lib/log.js" ).module( "something weird" );
+log = require( "fm-log" ).module( "something weird" );
 log.warn( "...or do we?" );
 
-log = require( __dirname + "/lib/log.js" );
+log = require( "fm-log" );
 log.notice( "You're using a longer prefix? I'll adjust." );
 
-log = require( __dirname + "/lib/log.js" ).module();
+log = require( "fm-log" ).module();
 log.error( "ouch" );
 ```
 
