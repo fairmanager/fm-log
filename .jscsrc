@@ -1,5 +1,4 @@
 {
-	"disallowAnonymousFunctions": true,
 	"disallowEmptyBlocks": true,
 	"disallowKeywordsOnNewLine": [
 		"catch",
@@ -83,8 +82,7 @@
 		"void",
 		"with",
 		"return",
-		"typeof",
-		"function"
+		"typeof"
 	],
 	"requireSpaceAfterLineComment": {
 		"allExcept": [
