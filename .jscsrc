@@ -38,6 +38,7 @@
 	"requireCamelCaseOrUpperCaseIdentifiers": true,
 	"requireCapitalizedComments": {
 		"allExcept": [
+      "globals",
 			"noinspection"
 		]
 	},
