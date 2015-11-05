@@ -2,8 +2,8 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{fm-log node_modules}" />
-    <file url="PROJECT" libraries="{Node.js v0.12.7 Core Modules, mocha-DefinitelyTyped, should-DefinitelyTyped}" />
-    <includedPredefinedLibrary name="Node.js Globals" />
+    <file url="PROJECT" libraries="{mocha-DefinitelyTyped, should-DefinitelyTyped}" />
+    <includedPredefinedLibrary name="Node.js Core" />
     <excludedPredefinedLibrary name="HTML" />
     <excludedPredefinedLibrary name="HTML5 / EcmaScript 5" />
   </component>
