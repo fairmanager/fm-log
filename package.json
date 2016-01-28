@@ -1,6 +1,6 @@
 {
   "name": "fm-log",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Console logging facility for Node",
   "main": "lib/log.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hartwig-at/fm-log.git"
+    "url": "git://github.com/fairmanager/fm-log.git"
   },
   "keywords": [
     "console",
@@ -18,9 +18,9 @@
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hartwig-at/fm-log/issues"
+    "url": "https://github.com/fairmanager/fm-log/issues"
   },
-  "homepage": "https://github.com/hartwig-at/fm-log",
+  "homepage": "https://github.com/fairmanager/fm-log",
   "devDependencies": {
     "coveralls": "^2.11.4",
     "grunt": "0.4.5",
