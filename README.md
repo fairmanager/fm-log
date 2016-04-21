@@ -11,7 +11,7 @@ Straight-forward logging module.
 
 - lines up everything in nice columns
 - uses colors
-- sends everything straight to `process.stdout` (no events, no `nextTick()`) if desired
+- sends everything straight to `process.stderr` (no events, no `nextTick()`) if desired
 - condenses repeated messages
 - displays stack traces for logged Error instances and other multi-line content nicely
 - optionally displays the source of the logging call

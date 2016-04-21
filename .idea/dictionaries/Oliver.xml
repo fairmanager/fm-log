@@ -4,6 +4,7 @@
       <w>cobertura</w>
       <w>jscs</w>
       <w>jscsrc</w>
+      <w>subdomains</w>
     </words>
   </dictionary>
 </component>

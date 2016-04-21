@@ -1,0 +1,18 @@
+* text eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.ai binary
+*.aiff binary
+*.exe binary
+*.jar binary
+*.jpg binary
+*.mp3 binary
+*.o binary
+*.pdf binary
+*.png binary
+*.psd binary
+*.so binary
+*.ttf binary
+*.winmd binary
+*.zip binary
