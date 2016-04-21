@@ -214,7 +214,7 @@ describe( "Logger", function() {
 			log = require( "../lib/log.js" ).module().to( logStream );
 			log.info( "!" );
 			result.should.have.length( 1 );
-			result[ 0 ].should.match( /\d \[INFO  ] \(test\.js\) !/ );
+			result[ 0 ].should.match( /\d \[INFO  ] \(  test\) !/ );
 			done();
 		} );
 	} );
