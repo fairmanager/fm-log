@@ -1,5 +1,11 @@
-var chalk  = require( "chalk" );
-var should = require( "should" );
+const mocha = require( "mocha" );
+
+const afterEach  = mocha.afterEach;
+const beforeEach = mocha.beforeEach;
+const chalk      = require( "chalk" );
+const describe   = mocha.describe;
+const it         = mocha.it;
+const should     = require( "chai" ).should();
 
 describe( "Logger", function() {
 	var log;
@@ -17,7 +23,7 @@ describe( "Logger", function() {
 
 	describe( "without prefix", function() {
 		beforeEach( function() {
-			log = require( "../lib/log.js" ).to( logStream );
+			log = require( "../lib/log.js" ).to( logStream ).sync();
 		} );
 
 		it( "should log without errors", function( done ) {
@@ -98,7 +104,7 @@ describe( "Logger", function() {
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 			result[ 1 ].should.match( /\d                   !/ );
 
-			log = require( "../lib/log.js" );
+			log = require( "../lib/log.js" ).to( logStream );
 			log.info( "!\n!" );
 			result.length.should.equal( 4 );
 			result[ 2 ].should.match( /\d \[INFO  ]          !/ );
@@ -214,9 +220,8 @@ describe( "Logger", function() {
 			log = require( "../lib/log.js" ).module().to( logStream );
 			log.info( "!" );
 			result.should.have.length( 1 );
-			result[ 0 ].should.match( /\d \[INFO  ] \(  test\) !/ );
+			result[ 0 ].should.match( /\d \[INFO  ] \(Logger\) !/ );
 			done();
 		} );
 	} );
-
 } );
