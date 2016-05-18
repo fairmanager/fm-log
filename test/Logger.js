@@ -182,6 +182,7 @@ describe( "Logger", () => {
 			// Clear internal repeat count.
 			log.info( "---" );
 		} );
+
 		it( "should be omitted", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
@@ -189,6 +190,7 @@ describe( "Logger", () => {
 			result.length.should.equal( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 		} );
+
 		it( "should be summarized", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
@@ -199,6 +201,7 @@ describe( "Logger", () => {
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
 			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
 		} );
+
 		it( "should be summarized with pluralization", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
@@ -209,6 +212,20 @@ describe( "Logger", () => {
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 2 times\./ );
 			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
+		} );
+
+		it( "should be summarized repeatedly", () => {
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			log.info( "!" );
+			log.info( "!!" );
+			log.info( "!!" );
+			log.info( "-" );
+			result.length.should.equal( 5 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
+			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
+			result[ 3 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
 		} );
 	} );
 
