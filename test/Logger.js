@@ -57,6 +57,12 @@ describe( "Logger", function() {
 			log.critical( "!" );
 			result[ 5 ].should.match( /\d \[CRITIC] !/ );
 		} );
+
+		it( "should create an unprefixed logger", () => {
+			log = require( "../lib/log.js" ).module( "" ).to( logStream );
+			log.debug( "!" );
+			result[ 0 ].should.match( /\d \[DEBUG ] !/ );
+		} );
 	} );
 
 	describe( "with prefix", function() {
