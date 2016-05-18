@@ -221,4 +221,19 @@ describe( "Logger", function() {
 			result[ 0 ].should.match( /\d \[INFO  ] \(Logger\) !/ );
 		} );
 	} );
+
+	describe( "silence", () => {
+		it( "shouldn't log when silenced", () => {
+			log = require( "../lib/log.js" ).module( "" ).to( logStream ).off();
+			log.info( "!" );
+			result.should.have.length( 0 );
+		} );
+
+		it( "shouldn't log when globally silenced", () => {
+			require( "../lib/log.js" ).logFactory.silence();
+			log = require( "../lib/log.js" ).module( "" ).to( logStream );
+			log.info( "!" );
+			result.should.have.length( 0 );
+		} );
+	} );
 } );
