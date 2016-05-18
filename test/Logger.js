@@ -9,41 +9,41 @@ const describe   = mocha.describe;
 const it         = mocha.it;
 const should     = require( "chai" ).should();
 
-describe( "Logger", function() {
-	var log;
-	var result;
+describe( "Logger", () => {
+	let log;
+	let result;
 
-	var Stream      = require( "stream" ).Writable;
-	var logStream   = new Stream();
+	const Stream    = require( "stream" ).Writable;
+	const logStream = new Stream();
 	logStream.write = function writeHandler( data ) {
 		let lines = chalk.stripColor( arguments[ 0 ] );
 		lines     = lines.replace( /(\r?\n|\r)$/, "" );
 		result    = result.concat( lines.split( "\n" ) );
 	};
 
-	beforeEach( function() {
+	beforeEach( () => {
 		result = [];
 	} );
 
-	describe( "without prefix", function() {
-		beforeEach( function() {
+	describe( "without prefix", () => {
+		beforeEach( () => {
 			log = require( "../lib/log.js" ).to( logStream ).sync();
 		} );
 
-		it( "should log without errors", function() {
+		it( "should log without errors", () => {
 			log.info( "!" );
 			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] !/ );
 		} );
 
-		it( "should log multiline", function() {
+		it( "should log multiline", () => {
 			log.info( "!\n!" );
 			result.length.should.equal( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] !/ );
 			result[ 1 ].should.match( /\d          !/ );
 		} );
 
-		it( "should indent all log levels properly", function() {
+		it( "should indent all log levels properly", () => {
 			log.debug( "!" );
 			result[ 0 ].should.match( /\d \[DEBUG ] !/ );
 			log.info( "!" );
@@ -65,19 +65,19 @@ describe( "Logger", function() {
 		} );
 	} );
 
-	describe( "with prefix", function() {
-		beforeEach( function() {
+	describe( "with prefix", () => {
+		beforeEach( () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 		} );
 
-		it( "should log without errors", function( done ) {
+		it( "should log without errors", done => {
 			log.info( "!" );
 			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(foo\) !/ );
 			done();
 		} );
 
-		it( "should log multiline", function( done ) {
+		it( "should log multiline", done => {
 			log.info( "!\n!" );
 			result.should.have.length( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(foo\) !/ );
@@ -85,7 +85,7 @@ describe( "Logger", function() {
 			done();
 		} );
 
-		it( "should indent all log levels properly", function( done ) {
+		it( "should indent all log levels properly", done => {
 			log.debug( "!" );
 			result[ 0 ].should.match( /\d \[DEBUG ] \(foo\) !/ );
 			log.info( "!" );
@@ -102,8 +102,8 @@ describe( "Logger", function() {
 		} );
 	} );
 
-	describe( "mixed prefixes", function() {
-		it( "should log multiline", function() {
+	describe( "mixed prefixes", () => {
+		it( "should log multiline", () => {
 			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!\n!" );
@@ -119,44 +119,44 @@ describe( "Logger", function() {
 		} );
 	} );
 
-	describe( "errors", function() {
-		it( "should render them properly", function() {
+	describe( "errors", () => {
+		it( "should render them properly", () => {
 			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
 			log.error( new Error( "boom" ) );
 			// TODO: Actually check the output
 		} );
 	} );
 
-	describe( "disabled logging", function() {
-		beforeEach( function() {
+	describe( "disabled logging", () => {
+		beforeEach( () => {
 			log               = require( "../lib/log.js" ).to( logStream );
 			log.enableLogging = false;
 		} );
-		afterEach( function() {
+		afterEach( () => {
 			log.enableLogging = true;
 		} );
 
-		it( "shouldn't render debug", function() {
+		it( "shouldn't render debug", () => {
 			log.debug( "!" );
 			result.length.should.equal( 0 );
 		} );
-		it( "shouldn't render info", function() {
+		it( "shouldn't render info", () => {
 			log.info( "!" );
 			result.length.should.equal( 0 );
 		} );
-		it( "shouldn't render notice", function() {
+		it( "shouldn't render notice", () => {
 			log.notice( "!" );
 			result.length.should.equal( 0 );
 		} );
-		it( "shouldn't render warn", function() {
+		it( "shouldn't render warn", () => {
 			log.warn( "!" );
 			result.length.should.equal( 0 );
 		} );
-		it( "shouldn't render error", function() {
+		it( "shouldn't render error", () => {
 			log.error( "!" );
 			result.length.should.equal( 0 );
 		} );
-		it( "shouldn't render critical", function() {
+		it( "shouldn't render critical", () => {
 			log               = require( "../lib/log.js" );
 			log.enableLogging = false;
 			log.critical( "!" );
@@ -164,8 +164,8 @@ describe( "Logger", function() {
 		} );
 	} );
 
-	describe( "source tracing", function() {
-		it( "should render them properly", function() {
+	describe( "source tracing", () => {
+		it( "should render them properly", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).withSource().to( logStream );
 			(function source() {
 				log.info( "!" );
@@ -177,19 +177,21 @@ describe( "Logger", function() {
 		} );
 	} );
 
-	describe( "duplicate messages", function() {
-		afterEach( function() {
+	describe( "duplicate messages", () => {
+		afterEach( () => {
 			// Clear internal repeat count.
 			log.info( "---" );
 		} );
-		it( "should be omitted", function() {
+
+		it( "should be omitted", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
 			log.info( "!" );
 			result.length.should.equal( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 		} );
-		it( "should be summarized", function() {
+
+		it( "should be summarized", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
 			log.info( "!" );
@@ -199,7 +201,8 @@ describe( "Logger", function() {
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
 			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
 		} );
-		it( "should be summarized with pluralization", function() {
+
+		it( "should be summarized with pluralization", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!" );
 			log.info( "!" );
@@ -210,11 +213,25 @@ describe( "Logger", function() {
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 2 times\./ );
 			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
 		} );
+
+		it( "should be summarized repeatedly", () => {
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			log.info( "!" );
+			log.info( "!!" );
+			log.info( "!!" );
+			log.info( "-" );
+			result.length.should.equal( 5 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
+			result[ 2 ].should.match( /\d \[INFO  ] \(   foo\) !!/ );
+			result[ 3 ].should.match( /\d \[INFO  ] \(   foo\) Last message repeated 1 time\./ );
+		} );
 	} );
 
 	// This prefix changes indentation. Test this last, as it affects other test output.
-	describe( "default prefix", function() {
-		it( "should pick the correct module name", function() {
+	describe( "default prefix", () => {
+		it( "should pick the correct module name", () => {
 			log = require( "../lib/log.js" ).module().to( logStream );
 			log.info( "!" );
 			result.should.have.length( 1 );
