@@ -57,6 +57,12 @@ describe( "Logger", function() {
 			log.critical( "!" );
 			result[ 5 ].should.match( /\d \[CRITIC] !/ );
 		} );
+
+		it( "should create an unprefixed logger", () => {
+			log = require( "../lib/log.js" ).module( "" ).to( logStream );
+			log.debug( "!" );
+			result[ 0 ].should.match( /\d \[DEBUG ] !/ );
+		} );
 	} );
 
 	describe( "with prefix", function() {
@@ -213,6 +219,21 @@ describe( "Logger", function() {
 			log.info( "!" );
 			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(Logger\) !/ );
+		} );
+	} );
+
+	describe( "silence", () => {
+		it( "shouldn't log when silenced", () => {
+			log = require( "../lib/log.js" ).module( "" ).to( logStream ).off();
+			log.info( "!" );
+			result.should.have.length( 0 );
+		} );
+
+		it( "shouldn't log when globally silenced", () => {
+			require( "../lib/log.js" ).logFactory.silence();
+			log = require( "../lib/log.js" ).module( "" ).to( logStream );
+			log.info( "!" );
+			result.should.have.length( 0 );
 		} );
 	} );
 } );
