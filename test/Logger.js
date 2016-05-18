@@ -1,3 +1,5 @@
+"use strict";
+
 const mocha = require( "mocha" );
 
 const afterEach  = mocha.afterEach;
@@ -14,7 +16,9 @@ describe( "Logger", function() {
 	var Stream      = require( "stream" ).Writable;
 	var logStream   = new Stream();
 	logStream.write = function writeHandler( data ) {
-		result.push( chalk.stripColor( arguments[ 0 ] ) );
+		let lines = chalk.stripColor( arguments[ 0 ] );
+		lines     = lines.replace( /(\r?\n|\r)$/, "" );
+		result    = result.concat( lines.split( "\n" ) );
 	};
 
 	beforeEach( function() {
@@ -26,22 +30,20 @@ describe( "Logger", function() {
 			log = require( "../lib/log.js" ).to( logStream ).sync();
 		} );
 
-		it( "should log without errors", function( done ) {
+		it( "should log without errors", function() {
 			log.info( "!" );
 			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] !/ );
-			done();
 		} );
 
-		it( "should log multiline", function( done ) {
+		it( "should log multiline", function() {
 			log.info( "!\n!" );
 			result.length.should.equal( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] !/ );
 			result[ 1 ].should.match( /\d          !/ );
-			done();
 		} );
 
-		it( "should indent all log levels properly", function( done ) {
+		it( "should indent all log levels properly", function() {
 			log.debug( "!" );
 			result[ 0 ].should.match( /\d \[DEBUG ] !/ );
 			log.info( "!" );
@@ -54,7 +56,6 @@ describe( "Logger", function() {
 			result[ 4 ].should.match( /\d \[ERROR ] !/ );
 			log.critical( "!" );
 			result[ 5 ].should.match( /\d \[CRITIC] !/ );
-			done();
 		} );
 	} );
 
@@ -96,7 +97,7 @@ describe( "Logger", function() {
 	} );
 
 	describe( "mixed prefixes", function() {
-		it( "should log multiline", function( done ) {
+		it( "should log multiline", function() {
 			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!\n!" );
@@ -109,16 +110,14 @@ describe( "Logger", function() {
 			result.length.should.equal( 4 );
 			result[ 2 ].should.match( /\d \[INFO  ]          !/ );
 			result[ 3 ].should.match( /\d                   !/ );
-			done();
 		} );
 	} );
 
 	describe( "errors", function() {
-		it( "should render them properly", function( done ) {
+		it( "should render them properly", function() {
 			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
 			log.error( new Error( "boom" ) );
 			// TODO: Actually check the output
-			done();
 		} );
 	} );
 
@@ -131,42 +130,36 @@ describe( "Logger", function() {
 			log.enableLogging = true;
 		} );
 
-		it( "shouldn't render debug", function( done ) {
+		it( "shouldn't render debug", function() {
 			log.debug( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
-		it( "shouldn't render info", function( done ) {
+		it( "shouldn't render info", function() {
 			log.info( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
-		it( "shouldn't render notice", function( done ) {
+		it( "shouldn't render notice", function() {
 			log.notice( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
-		it( "shouldn't render warn", function( done ) {
+		it( "shouldn't render warn", function() {
 			log.warn( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
-		it( "shouldn't render error", function( done ) {
+		it( "shouldn't render error", function() {
 			log.error( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
-		it( "shouldn't render critical", function( done ) {
+		it( "shouldn't render critical", function() {
 			log               = require( "../lib/log.js" );
 			log.enableLogging = false;
 			log.critical( "!" );
 			result.length.should.equal( 0 );
-			done();
 		} );
 	} );
 
 	describe( "source tracing", function() {
-		it( "should render them properly", function( done ) {
+		it( "should render them properly", function() {
 			log = require( "../lib/log.js" ).module( "foo" ).withSource().to( logStream );
 			(function source() {
 				log.info( "!" );
@@ -175,7 +168,6 @@ describe( "Logger", function() {
 			result.length.should.equal( 2 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\)   source@.+?:\d+:\d+/ );
-			done();
 		} );
 	} );
 
@@ -216,12 +208,11 @@ describe( "Logger", function() {
 
 	// This prefix changes indentation. Test this last, as it affects other test output.
 	describe( "default prefix", function() {
-		it( "should pick the correct module name", function( done ) {
+		it( "should pick the correct module name", function() {
 			log = require( "../lib/log.js" ).module().to( logStream );
 			log.info( "!" );
 			result.should.have.length( 1 );
 			result[ 0 ].should.match( /\d \[INFO  ] \(Logger\) !/ );
-			done();
 		} );
 	} );
 } );
