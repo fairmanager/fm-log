@@ -1,0 +1,5 @@
+exclude_paths:
+  - "typings/**/*"
+  - "test/**/*"
+  - "demo.js"
+  - "Gruntfile.js"
