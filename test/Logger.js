@@ -2,6 +2,7 @@
 
 const mocha = require( "mocha" );
 
+const after      = mocha.after;
 const afterEach  = mocha.afterEach;
 const beforeEach = mocha.beforeEach;
 const chalk      = require( "chalk" );
@@ -240,6 +241,10 @@ describe( "Logger", () => {
 	} );
 
 	describe( "silence", () => {
+		after( () => {
+			require( "../lib/log.js" ).logFactory.silence( false );
+		} );
+
 		it( "shouldn't log when silenced", () => {
 			log = require( "../lib/log.js" ).module( "" ).to( logStream ).off();
 			log.info( "!" );
@@ -251,6 +256,38 @@ describe( "Logger", () => {
 			log = require( "../lib/log.js" ).module( "" ).to( logStream );
 			log.info( "!" );
 			result.should.have.length( 0 );
+		} );
+	} );
+
+	describe( "level requirements", () => {
+		beforeEach( () => {
+			log = require( "../lib/log.js" ).module( "" ).to( logStream );
+		} );
+
+		after( () => {
+			require( "../lib/log.js" ).logFactory.require();
+		} );
+
+		it( "should not log when level is below min", () => {
+			const LogLevels = require( "../lib/LogLevels" );
+			log.require( LogLevels.ERROR );
+			log.debug( "!" );
+			result.should.have.length( 0 );
+		} );
+
+		it( "should not log when global level is below min", () => {
+			const LogLevels = require( "../lib/LogLevels" );
+			require( "../lib/log.js" ).logFactory.require( LogLevels.ERROR );
+			log.debug( "!" );
+			result.should.have.length( 0 );
+		} );
+
+		it( "should log when level is at min", () => {
+			const LogLevels = require( "../lib/LogLevels" );
+			log.require( LogLevels.INFO );
+			log.info( "!" );
+			result.should.have.length( 1 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 		} );
 	} );
 } );

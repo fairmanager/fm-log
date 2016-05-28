@@ -2,8 +2,6 @@
 
 const mocha = require( "mocha" );
 
-const afterEach  = mocha.afterEach;
-const beforeEach = mocha.beforeEach;
 const chalk      = require( "chalk" );
 const describe   = mocha.describe;
 const it         = mocha.it;
