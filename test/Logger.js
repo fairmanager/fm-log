@@ -287,7 +287,7 @@ describe( "Logger", () => {
 			log.require( LogLevels.INFO );
 			log.info( "!" );
 			result.should.have.length( 1 );
-			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
+			result[ 0 ].should.match( /\d \[INFO  ]          !/ );
 		} );
 	} );
 } );
