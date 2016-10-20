@@ -1,5 +1,6 @@
 fm-log
 ======
+[![npm Package](https://npmjs.org/package/fm-log)](https://img.shields.io/npm/v/fm-log.svg)
 [![](https://travis-ci.org/fairmanager/fm-log.svg?branch=master)](https://travis-ci.org/fairmanager/fm-log)
 [![Coverage Status](https://coveralls.io/repos/fairmanager/fm-log/badge.svg?branch=master&service=github)](https://coveralls.io/github/fairmanager/fm-log?branch=master)
 [![Code Climate](https://codeclimate.com/github/fairmanager/fm-log/badges/gpa.svg)](https://codeclimate.com/github/fairmanager/fm-log)
