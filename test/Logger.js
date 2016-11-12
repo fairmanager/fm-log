@@ -109,14 +109,23 @@ describe( "Logger", () => {
 			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
 			log.info( "!\n!" );
 			result.length.should.equal( 2 );
-			result[ 0 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
-			result[ 1 ].should.match( /\d                   !/ );
+			result[ 0 ].should.match( /\d \[INFO  ] \(foo\) !/ );
+			result[ 1 ].should.match( /\d                !/ );
 
 			log = require( "../lib/log.js" ).to( logStream );
 			log.info( "!\n!" );
 			result.length.should.equal( 4 );
-			result[ 2 ].should.match( /\d \[INFO  ]          !/ );
-			result[ 3 ].should.match( /\d                   !/ );
+			result[ 2 ].should.match( /\d \[INFO  ]       !/ );
+			result[ 3 ].should.match( /\d                !/ );
+		} );
+		it( "should expand prefix padding", () => {
+			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
+			log.info( "!" );
+			log = require( "../lib/log.js" ).module( "foo" ).to( logStream );
+			log.info( "!" );
+			result.length.should.equal( 2 );
+			result[ 0 ].should.match( /\d \[INFO  ] \(module\) !/ );
+			result[ 1 ].should.match( /\d \[INFO  ] \(   foo\) !/ );
 		} );
 	} );
 
