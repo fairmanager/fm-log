@@ -129,6 +129,12 @@ describe( "Logger", () => {
 		} );
 	} );
 
+	describe( "padding", () => {
+		const MessageFormatter = require( "../lib/MessageFormatter" );
+		MessageFormatter.pad( "1" ).should.equal( "01" );
+		MessageFormatter.pad( "11" ).should.equal( "11" );
+	} );
+
 	describe( "errors", () => {
 		it( "should render them properly", () => {
 			log = require( "../lib/log.js" ).module( "module" ).to( logStream );
