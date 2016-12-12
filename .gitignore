@@ -1,3 +1,6 @@
+.idea/markdown-navigator/
+.idea/markdown-navigator.*
+
 .idea/dbnavigator.xml
 .idea/deployment.xml
 .idea/workspace.xml
