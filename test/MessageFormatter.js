@@ -27,6 +27,6 @@ describe( "MessageFormatter", () => {
 	it( "should format a date as expected", () => {
 		const date      = new Date( "Wed Dec 14 2016 16:48:07 GMT+0100 (W. Europe Standard Time)" );
 		const formatted = MessageFormatter.formatDate( date );
-		formatted.should.equal( "2016-12-14 16:48:07.000" );
+		formatted.should.match(  /\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d\.\d\d\d/ );
 	} );
 } );
