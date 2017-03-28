@@ -1,32 +1,18 @@
-module.exports = function( grunt ) {
+module.exports = grunt => {
 
 	// Project configuration.
 	grunt.initConfig(
 		{
 			pkg : grunt.file.readJSON( "package.json" ),
 
-			jshint : {
-				options : {
-					jshintrc : true
-				},
-				lib     : {
-					src : [
-						"lib/*.js"
-					]
-				}
-			},
-
-			jscs : {
-				src     : [
+			eslint : {
+				target : [
 					"lib/*.js"
-				],
-				options : {
-					config  : ".jscsrc",
-					verbose : true
-				}
+				]
 			},
 
-			mocha_istanbul : {// jscs:ignore requireCamelCaseOrUpperCaseIdentifiers
+			// eslint-disable-next-line camelcase
+			mocha_istanbul : {
 				coverage : {
 					src     : "test",
 					options : {
@@ -57,11 +43,10 @@ module.exports = function( grunt ) {
 		} );
 	} );
 
-	grunt.loadNpmTasks( "grunt-jscs" );
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
+	grunt.loadNpmTasks( "grunt-eslint" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-mocha-istanbul" );
 
 	grunt.registerTask( "test", [ "mocha_istanbul:coverage" ] );
-	grunt.registerTask( "default", [ "jshint", "jscs" ] );
+	grunt.registerTask( "default", [ "eslint" ] );
 };
